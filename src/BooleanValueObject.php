@@ -8,5 +8,5 @@ interface BooleanValueObject
 {
     public function getValue(): bool;
 
-    public function equal(self $object): bool;
+    public function equal(BooleanValueObject $object): bool;
 }

@@ -22,9 +22,13 @@ abstract class BooleanValueObject extends ValueObject implements BooleanValueObj
         return $this->value;
     }
 
-    public function equal(self $object): bool
+    public function equal(BooleanValueObjectInterface $object): bool
     {
-        return $this->value === $object->value
-            && $this->isType($object->getType());
+        if ($object instanceof ValueObject){
+            return $this->value === $object->getValue()
+                && $this->isType($object->getType());
+        } else {
+            return $this->value === $object->getValue();
+        }
     }
 }

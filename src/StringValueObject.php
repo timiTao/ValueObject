@@ -8,5 +8,5 @@ interface StringValueObject
 {
     public function getValue(): string;
 
-    public function equal(self $object): bool;
+    public function equal(StringValueObject $object): bool;
 }

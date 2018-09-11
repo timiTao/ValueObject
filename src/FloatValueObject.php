@@ -8,5 +8,5 @@ interface FloatValueObject
 {
     public function getValue(): float;
 
-    public function equal(self $object): bool;
+    public function equal(FloatValueObject $object): bool;
 }

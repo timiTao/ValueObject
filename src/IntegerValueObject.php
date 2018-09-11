@@ -8,5 +8,5 @@ interface IntegerValueObject
 {
     public function getValue(): int;
 
-    public function equal(self $object): bool;
+    public function equal(IntegerValueObject $object): bool;
 }

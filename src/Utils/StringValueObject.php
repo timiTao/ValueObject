@@ -22,9 +22,13 @@ abstract class StringValueObject extends ValueObject implements StringValueObjec
         return $this->value;
     }
 
-    public function equal(self $object): bool
+    public function equal(StringValueObjectInterface $object): bool
     {
-        return $this->value === $object->value
-            && $this->isType($object->getType());
+        if ($object instanceof ValueObject){
+            return $this->value === $object->getValue()
+                && $this->isType($object->getType());
+        } else {
+            return $this->value === $object->getValue();
+        }
     }
 }

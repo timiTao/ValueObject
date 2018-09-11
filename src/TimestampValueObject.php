@@ -12,5 +12,5 @@ interface TimestampValueObject
 
     public function getDateTime(): DateTimeImmutable;
 
-    public function equal(self $object): bool;
+    public function equal(TimestampValueObject $object): bool;
 }
