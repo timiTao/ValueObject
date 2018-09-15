@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace TimiTao\ValueObject\Utils;
 
+use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use TimiTao\ValueObject\TimestampValueObject as TimestampValueObjectInterface;
 
 abstract class TimestampValueObject extends ValueObject implements TimestampValueObjectInterface
@@ -16,7 +16,7 @@ abstract class TimestampValueObject extends ValueObject implements TimestampValu
     /** @var  string */
     private $format;
 
-    public function __construct(string $type, DateTimeImmutable $value, string $format = DateTimeInterface::ATOM)
+    public function __construct(string $type, DateTimeImmutable $value, string $format = DateTime::ATOM)
     {
         parent::__construct($type);
         $this->value = $value;
@@ -35,7 +35,7 @@ abstract class TimestampValueObject extends ValueObject implements TimestampValu
 
     public function equal(TimestampValueObjectInterface $object): bool
     {
-        if ($object instanceof ValueObject){
+        if ($object instanceof ValueObject) {
             return $this->value === $object->getValue()
                 && $this->isType($object->getType());
         } else {
