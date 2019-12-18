@@ -1,7 +1,7 @@
 [![License](https://poser.pugx.org/timitao/value-object/license.svg)](https://packagist.org/packages/timitao/value-object)
 [![Latest Stable Version](https://poser.pugx.org/timitao/value-object/v/stable.svg)](https://packagist.org/packages/timitao/value-object)
 [![Total Downloads](https://poser.pugx.org/timitao/value-object/downloads.svg)](https://packagist.org/packages/timitao/value-object)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/timitao/value-object/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/timitao/value-object/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/timiTao/ValueObject/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/timiTao/ValueObject/?branch=master)
 
 ### Architecture decision records
 
