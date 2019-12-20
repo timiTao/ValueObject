@@ -17,7 +17,11 @@ abstract class StringValueObject implements StringValueObjectInterface
      */
     public function __construct(string $value)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
     }
 
@@ -34,8 +38,10 @@ abstract class StringValueObject implements StringValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
+    abstract protected function guard(string $value): void;
+
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(string $value): void;
+    abstract protected function throwException(string $value, Exception $e): Exception;
 }

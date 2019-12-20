@@ -17,7 +17,11 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
      */
     public function __construct(bool $value)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
     }
 
@@ -34,8 +38,10 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
+    abstract protected function guard(bool $value): void;
+
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(bool $value): void;
+    abstract protected function throwException(bool $value, Exception $e): Exception;
 }

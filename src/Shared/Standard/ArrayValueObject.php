@@ -17,7 +17,11 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
      */
     public function __construct(array $value)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
     }
 
@@ -34,8 +38,10 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
+    abstract protected function guard(array $value): void;
+
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(array $value): void;
+    abstract protected function throwException(array $value, Exception $e): Exception;
 }

@@ -9,7 +9,6 @@ use DateTimeImmutable;
 use Exception;
 use InvalidArgumentException;
 use TimiTao\ValueObject\Core\DateTime\DateFormatValueObject as DateFormatValueObjectInterface;
-use TimiTao\ValueObject\Core\Standard\StringValueObject;
 
 abstract class DateFormatValueObject implements DateFormatValueObjectInterface
 {
@@ -19,7 +18,11 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
 
     public function __construct(DateTimeImmutable $value, string $format = DateTime::ATOM)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
         $this->format = $format;
     }
@@ -34,16 +37,18 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
         return $this->value;
     }
 
-    public function equals(StringValueObject $other): bool
+    public function equals(DateFormatValueObjectInterface $other): bool
     {
         if (static::class !== get_class($other)) {
             return false;
         }
-        return $this->getValue() === $other->getValue();
+        return $this->getDateTime()->getTimestamp() === $other->getDateTime()->getTimestamp();
     }
+
+    abstract protected function guard(DateTimeImmutable $value): void;
 
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(DateTimeImmutable $value): void;
+    abstract protected function throwException(DateTimeImmutable $value, Exception $e): Exception;
 }

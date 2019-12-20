@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Exception;
 use InvalidArgumentException;
 use TimiTao\ValueObject\Core\DateTime\TimestampValueObject as TimestampValueObjectInterface;
-use TimiTao\ValueObject\Core\Standard\IntegerValueObject;
 
 abstract class TimestampValueObject implements TimestampValueObjectInterface
 {
@@ -16,7 +15,11 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
 
     public function __construct(DateTimeImmutable $value)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
     }
 
@@ -30,7 +33,7 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
         return $this->value;
     }
 
-    public function equals(IntegerValueObject $other): bool
+    public function equals(TimestampValueObjectInterface $other): bool
     {
         if (static::class !== get_class($other)) {
             return false;
@@ -38,8 +41,10 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
+    abstract protected function guard(DateTimeImmutable $value): void;
+
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(DateTimeImmutable $value): void;
+    abstract protected function throwException(DateTimeImmutable $value, Exception $e): Exception;
 }

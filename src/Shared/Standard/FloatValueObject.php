@@ -17,7 +17,11 @@ abstract class FloatValueObject implements FloatValueObjectInterface
      */
     public function __construct(float $value)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
     }
 
@@ -34,8 +38,10 @@ abstract class FloatValueObject implements FloatValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
+    abstract protected function guard(float $value): void;
+
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(float $value): void;
+    abstract protected function throwException(float $value, Exception $e): Exception;
 }

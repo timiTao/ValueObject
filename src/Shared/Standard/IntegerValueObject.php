@@ -17,7 +17,11 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
      */
     public function __construct(int $value)
     {
-        $this->guard($value);
+        try {
+            $this->guard($value);
+        } catch (Exception $e) {
+            throw $this->throwException($value, $e);
+        }
         $this->value = $value;
     }
 
@@ -34,8 +38,10 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
+    abstract protected function guard(int $value): void;
+
     /**
      * @throws InvalidArgumentException|Exception if value is invalid
      */
-    abstract protected function guard(int $value): void;
+    abstract protected function throwException(int $value, Exception $e): Exception;
 }
