@@ -6,26 +6,24 @@ namespace TimiTao\ValueObject\Shared\DateTime;
 
 use DateTimeImmutable;
 use Exception;
-use InvalidArgumentException;
+use Throwable;
 use TimiTao\ValueObject\Core\DateTime\TimestampValueObject as TimestampValueObjectInterface;
 
 abstract class TimestampValueObject implements TimestampValueObjectInterface
 {
     private $value;
 
+    /**
+     * @throws Exception if value is invalid
+     */
     public function __construct(DateTimeImmutable $value)
     {
         try {
             $this->guard($value);
-        } catch (Exception $e) {
-            throw $this->throwException($value, $e);
+        } catch (Throwable $e) {
+            throw $this->throwException($value);
         }
         $this->value = $value;
-    }
-
-    public function getValue(): int
-    {
-        return $this->value->getTimestamp();
     }
 
     public function getDateTime(): DateTimeImmutable
@@ -41,10 +39,15 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    abstract protected function guard(DateTimeImmutable $value): void;
+    public function getValue(): int
+    {
+        return $this->value->getTimestamp();
+    }
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Throwable if value is invalid
      */
-    abstract protected function throwException(DateTimeImmutable $value, Exception $e): Exception;
+    abstract protected function guard(DateTimeImmutable $value): void;
+
+    abstract protected function throwException(DateTimeImmutable $value): Exception;
 }

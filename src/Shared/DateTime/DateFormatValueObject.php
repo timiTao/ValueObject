@@ -7,7 +7,7 @@ namespace TimiTao\ValueObject\Shared\DateTime;
 use DateTime;
 use DateTimeImmutable;
 use Exception;
-use InvalidArgumentException;
+use Throwable;
 use TimiTao\ValueObject\Core\DateTime\DateFormatValueObject as DateFormatValueObjectInterface;
 
 abstract class DateFormatValueObject implements DateFormatValueObjectInterface
@@ -16,12 +16,15 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
 
     private $format;
 
+    /**
+     * @throws Exception if value is invalid
+     */
     public function __construct(DateTimeImmutable $value, string $format = DateTime::ATOM)
     {
         try {
             $this->guard($value);
-        } catch (Exception $e) {
-            throw $this->throwException($value, $e);
+        } catch (Throwable $e) {
+            throw $this->throwException($value);
         }
         $this->value = $value;
         $this->format = $format;
@@ -32,11 +35,6 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
         return $this->value->format($this->format);
     }
 
-    public function getDateTime(): DateTimeImmutable
-    {
-        return $this->value;
-    }
-
     public function equals(DateFormatValueObjectInterface $other): bool
     {
         if (static::class !== get_class($other)) {
@@ -45,10 +43,15 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
         return $this->getDateTime()->getTimestamp() === $other->getDateTime()->getTimestamp();
     }
 
-    abstract protected function guard(DateTimeImmutable $value): void;
+    public function getDateTime(): DateTimeImmutable
+    {
+        return $this->value;
+    }
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Throwable if value is invalid
      */
-    abstract protected function throwException(DateTimeImmutable $value, Exception $e): Exception;
+    abstract protected function guard(DateTimeImmutable $value): void;
+
+    abstract protected function throwException(DateTimeImmutable $value): Exception;
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Shared\Standard;
 
 use Exception;
-use InvalidArgumentException;
+use Throwable;
 use TimiTao\ValueObject\Core\Standard\ArrayValueObject as ArrayValueObjectInterface;
 
 abstract class ArrayValueObject implements ArrayValueObjectInterface
@@ -13,21 +13,16 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
     private $value;
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Exception if value is invalid
      */
     public function __construct(array $value)
     {
         try {
             $this->guard($value);
-        } catch (Exception $e) {
-            throw $this->throwException($value, $e);
+        } catch (Throwable $e) {
+            throw $this->throwException($value);
         }
         $this->value = $value;
-    }
-
-    public function getValue(): array
-    {
-        return $this->value;
     }
 
     public function equals(ArrayValueObjectInterface $other): bool
@@ -38,10 +33,15 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    abstract protected function guard(array $value): void;
+    public function getValue(): array
+    {
+        return $this->value;
+    }
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Throwable if value is invalid
      */
-    abstract protected function throwException(array $value, Exception $e): Exception;
+    abstract protected function guard(array $value): void;
+
+    abstract protected function throwException(array $value): Exception;
 }

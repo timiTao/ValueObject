@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Shared\Standard;
 
 use Exception;
-use InvalidArgumentException;
+use Throwable;
 use TimiTao\ValueObject\Core\Standard\IntegerValueObject as IntegerValueObjectInterface;
 
 abstract class IntegerValueObject implements IntegerValueObjectInterface
@@ -13,21 +13,16 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
     private $value;
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Exception if value is invalid
      */
     public function __construct(int $value)
     {
         try {
             $this->guard($value);
-        } catch (Exception $e) {
-            throw $this->throwException($value, $e);
+        } catch (Throwable $e) {
+            throw $this->throwException($value);
         }
         $this->value = $value;
-    }
-
-    public function getValue(): int
-    {
-        return $this->value;
     }
 
     public function equals(IntegerValueObjectInterface $other): bool
@@ -38,10 +33,15 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    abstract protected function guard(int $value): void;
+    public function getValue(): int
+    {
+        return $this->value;
+    }
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Throwable if value is invalid
      */
-    abstract protected function throwException(int $value, Exception $e): Exception;
+    abstract protected function guard(int $value): void;
+
+    abstract protected function throwException(int $value): Exception;
 }

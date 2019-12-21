@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Shared\Standard;
 
 use Exception;
-use InvalidArgumentException;
+use Throwable;
 use TimiTao\ValueObject\Core\Standard\FloatValueObject as FloatValueObjectInterface;
 
 abstract class FloatValueObject implements FloatValueObjectInterface
@@ -13,21 +13,16 @@ abstract class FloatValueObject implements FloatValueObjectInterface
     private $value;
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Exception if value is invalid
      */
     public function __construct(float $value)
     {
         try {
             $this->guard($value);
-        } catch (Exception $e) {
-            throw $this->throwException($value, $e);
+        } catch (Throwable $e) {
+            throw $this->throwException($value);
         }
         $this->value = $value;
-    }
-
-    public function getValue(): float
-    {
-        return $this->value;
     }
 
     public function equals(FloatValueObjectInterface $other): bool
@@ -38,10 +33,15 @@ abstract class FloatValueObject implements FloatValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    abstract protected function guard(float $value): void;
+    public function getValue(): float
+    {
+        return $this->value;
+    }
 
     /**
-     * @throws InvalidArgumentException|Exception if value is invalid
+     * @throws Throwable if value is invalid
      */
-    abstract protected function throwException(float $value, Exception $e): Exception;
+    abstract protected function guard(float $value): void;
+
+    abstract protected function throwException(float $value): Exception;
 }
