@@ -20,7 +20,7 @@ abstract class FloatValueObject implements FloatValueObjectInterface
         try {
             $this->guard($value);
         } catch (Throwable $e) {
-            throw $this->throwException($value);
+            throw $this->throwException($value, $e);
         }
         $this->value = $value;
     }
@@ -43,5 +43,5 @@ abstract class FloatValueObject implements FloatValueObjectInterface
      */
     abstract protected function guard(float $value): void;
 
-    abstract protected function throwException(float $value): Exception;
+    abstract protected function throwException(float $value, Throwable $e): Exception;
 }

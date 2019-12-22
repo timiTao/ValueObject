@@ -21,7 +21,7 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
         try {
             $this->guard($value);
         } catch (Throwable $e) {
-            throw $this->throwException($value);
+            throw $this->throwException($value, $e);
         }
         $this->value = $value;
     }
@@ -49,5 +49,5 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
      */
     abstract protected function guard(DateTimeImmutable $value): void;
 
-    abstract protected function throwException(DateTimeImmutable $value): Exception;
+    abstract protected function throwException(DateTimeImmutable $value, Throwable $e): Exception;
 }

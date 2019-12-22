@@ -20,7 +20,7 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
         try {
             $this->guard($value);
         } catch (Throwable $e) {
-            throw $this->throwException($value);
+            throw $this->throwException($value, $e);
         }
         $this->value = $value;
     }
@@ -43,5 +43,5 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
      */
     abstract protected function guard(int $value): void;
 
-    abstract protected function throwException(int $value): Exception;
+    abstract protected function throwException(int $value, Throwable $e): Exception;
 }

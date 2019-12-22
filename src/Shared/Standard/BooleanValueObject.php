@@ -20,7 +20,7 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
         try {
             $this->guard($value);
         } catch (Throwable $e) {
-            throw $this->throwException($value);
+            throw $this->throwException($value, $e);
         }
         $this->value = $value;
     }
@@ -43,5 +43,5 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
      */
     abstract protected function guard(bool $value): void;
 
-    abstract protected function throwException(bool $value): Exception;
+    abstract protected function throwException(bool $value, Throwable $e): Exception;
 }

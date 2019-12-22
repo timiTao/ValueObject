@@ -20,7 +20,7 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
         try {
             $this->guard($value);
         } catch (Throwable $e) {
-            throw $this->throwException($value);
+            throw $this->throwException($value, $e);
         }
         $this->value = $value;
     }
@@ -43,5 +43,5 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
      */
     abstract protected function guard(array $value): void;
 
-    abstract protected function throwException(array $value): Exception;
+    abstract protected function throwException(array $value, Throwable $e): Exception;
 }

@@ -20,7 +20,7 @@ abstract class StringValueObject implements StringValueObjectInterface
         try {
             $this->guard($value);
         } catch (Throwable $e) {
-            throw $this->throwException($value);
+            throw $this->throwException($value, $e);
         }
         $this->value = $value;
     }
@@ -43,5 +43,5 @@ abstract class StringValueObject implements StringValueObjectInterface
      */
     abstract protected function guard(string $value): void;
 
-    abstract protected function throwException(string $value): Exception;
+    abstract protected function throwException(string $value, Throwable $e): Exception;
 }
