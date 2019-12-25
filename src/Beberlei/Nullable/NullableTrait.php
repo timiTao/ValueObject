@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TimiTao\ValueObject\Shared\Nullable;
+namespace TimiTao\ValueObject\Beberlei\Nullable;
 
 /**
  * @method getValue()

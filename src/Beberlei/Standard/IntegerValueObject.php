@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace TimiTao\ValueObject\Shared\Standard;
+namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Core\Standard\ArrayValueObject as ArrayValueObjectInterface;
+use TimiTao\ValueObject\Core\Standard\IntegerValueObject as IntegerValueObjectInterface;
 
-abstract class ArrayValueObject implements ArrayValueObjectInterface
+abstract class IntegerValueObject implements IntegerValueObjectInterface
 {
     private $value;
 
     /**
      * @throws Exception if value is invalid
      */
-    public function __construct(array $value)
+    public function __construct(int $value)
     {
         try {
             $this->guard($value);
@@ -25,7 +25,7 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
         $this->value = $value;
     }
 
-    public function equals(ArrayValueObjectInterface $other): bool
+    public function equals(IntegerValueObjectInterface $other): bool
     {
         if (static::class !== get_class($other)) {
             return false;
@@ -33,7 +33,7 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    public function getValue(): array
+    public function getValue(): int
     {
         return $this->value;
     }
@@ -41,7 +41,7 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
     /**
      * @throws Throwable if value is invalid
      */
-    abstract protected function guard(array $value): void;
+    abstract protected function guard(int $value): void;
 
-    abstract protected function throwException(array $value, Throwable $e): Exception;
+    abstract protected function throwException(int $value, Throwable $e): Exception;
 }

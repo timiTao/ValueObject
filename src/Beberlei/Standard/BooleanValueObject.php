@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace TimiTao\ValueObject\Shared\Standard;
+namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Core\Standard\StringValueObject as StringValueObjectInterface;
+use TimiTao\ValueObject\Core\Standard\BooleanValueObject as BooleanValueObjectInterface;
 
-abstract class StringValueObject implements StringValueObjectInterface
+abstract class BooleanValueObject implements BooleanValueObjectInterface
 {
     private $value;
 
     /**
      * @throws Exception if value is invalid
      */
-    public function __construct(string $value)
+    public function __construct(bool $value)
     {
         try {
             $this->guard($value);
@@ -25,7 +25,7 @@ abstract class StringValueObject implements StringValueObjectInterface
         $this->value = $value;
     }
 
-    public function equals(StringValueObjectInterface $other): bool
+    public function equals(BooleanValueObjectInterface $other): bool
     {
         if (static::class !== get_class($other)) {
             return false;
@@ -33,7 +33,7 @@ abstract class StringValueObject implements StringValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    public function getValue(): string
+    public function getValue(): bool
     {
         return $this->value;
     }
@@ -41,7 +41,7 @@ abstract class StringValueObject implements StringValueObjectInterface
     /**
      * @throws Throwable if value is invalid
      */
-    abstract protected function guard(string $value): void;
+    abstract protected function guard(bool $value): void;
 
-    abstract protected function throwException(string $value, Throwable $e): Exception;
+    abstract protected function throwException(bool $value, Throwable $e): Exception;
 }

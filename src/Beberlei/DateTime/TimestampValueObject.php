@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TimiTao\ValueObject\Shared\DateTime;
+namespace TimiTao\ValueObject\Beberlei\DateTime;
 
 use DateTimeImmutable;
 use Exception;
