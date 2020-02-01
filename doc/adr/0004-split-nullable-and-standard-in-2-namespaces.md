@@ -1,10 +1,12 @@
-# 2. Strict code style
+# 4. Split nullable and standard in 2 namespaces
 
-Date: 2019-12-18
+Date: 2020-02-01
 
 ## Status
 
-Superceded by [4. Split nullable and standard in 2 namespaces](0004-split-nullable-and-standard-in-2-namespaces.md)
+Accepted
+
+Supercedes [2. Strict code style](0002-strict-code-style.md)
 
 ## Context
 
@@ -12,8 +14,12 @@ In PHP version 7.1, it was introduced the possibility to fully cover standard ty
 
 ## Decision
 
-You **MUST** declare one return type for each function.
+Split namespaces for:
+ 
+ * `Standard` ( **required** ) - always declare one RT
+ * `Nullable` ( **optional** ) - declare one RT or `null`
+
 
 ## Consequences
 
-Due to decision, the code is much more split over interfaces. Also, for the nullable object, we need to implement one extra function `isNull(): bool` over the standard implementation
+This will create more interfaces and implementation but will provide simpler interfaces.

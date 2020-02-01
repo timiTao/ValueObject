@@ -6,7 +6,7 @@ namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Core\Standard\FloatValueObject as FloatValueObjectInterface;
+use TimiTao\ValueObject\Standard\ValueObject\FloatValueObject as FloatValueObjectInterface;
 
 abstract class FloatValueObject implements FloatValueObjectInterface
 {

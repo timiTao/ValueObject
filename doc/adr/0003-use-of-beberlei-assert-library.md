@@ -8,8 +8,6 @@ Accepted
 
 ## Context
 
-The issue motivating this decision, and any context that influences or constrains the decision.
-
 For quick develop, it is best to move with battle-tested libraries. `Beberlei/assert` library is well known. The method of stopping by exception force to use `try/catch` block. We want also have the possibility to throw own exceptions in the domain, that doesn't need to extend class or implements interfaces outside of domain project.
 
 ## Decision

@@ -6,7 +6,7 @@ namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Core\Standard\ArrayValueObject as ArrayValueObjectInterface;
+use TimiTao\ValueObject\Standard\ValueObject\ArrayValueObject as ArrayValueObjectInterface;
 
 abstract class ArrayValueObject implements ArrayValueObjectInterface
 {

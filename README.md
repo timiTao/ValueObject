@@ -8,6 +8,7 @@
 1. [Record architecture decisions](/doc/adr/0001-record-architecture-decisions.md)
 2. [Strict code style](/doc/adr/0002-strict-code-style.md)
 3. [Use of Beberlei/assert library](/doc/adr/0003-use-of-beberlei-assert-library.md)
+4. [Split nullable and standard in 2 namespaces](/doc/adr/0004-split-nullable-and-standard-in-2-namespaces.md)
 
 ## Versioning
  

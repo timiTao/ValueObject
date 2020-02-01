@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace TimiTao\ValueObject\Beberlei\Standard;
+namespace TimiTao\ValueObject\Beberlei\Nullable;
 
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Standard\ValueObject\BooleanValueObject as BooleanValueObjectInterface;
+use TimiTao\ValueObject\Nullable\ValueObject\BooleanValueObject as BooleanValueObjectInterface;
 
 abstract class BooleanValueObject implements BooleanValueObjectInterface
 {
@@ -15,7 +15,7 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
     /**
      * @throws Exception if value is invalid
      */
-    public function __construct(bool $value)
+    public function __construct(?bool $value)
     {
         try {
             $this->guard($value);
@@ -33,7 +33,7 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
         return $this->getValue() === $other->getValue();
     }
 
-    public function getValue(): bool
+    public function getValue(): ?bool
     {
         return $this->value;
     }
@@ -41,7 +41,7 @@ abstract class BooleanValueObject implements BooleanValueObjectInterface
     /**
      * @throws Throwable if value is invalid
      */
-    abstract protected function guard(bool $value): void;
+    abstract protected function guard(?bool $value): void;
 
-    abstract protected function throwException(bool $value, Throwable $e): Exception;
+    abstract protected function throwException(?bool $value, Throwable $e): Exception;
 }

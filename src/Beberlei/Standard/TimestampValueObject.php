@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace TimiTao\ValueObject\Beberlei\Standard;
 
+use DateTimeImmutable;
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Standard\ValueObject\IntegerValueObject as IntegerValueObjectInterface;
+use TimiTao\ValueObject\Standard\DateTime\TimestampValueObject as TimestampValueObjectInterface;
 
-abstract class IntegerValueObject implements IntegerValueObjectInterface
+abstract class TimestampValueObject implements TimestampValueObjectInterface
 {
     private $value;
 
     /**
      * @throws Exception if value is invalid
      */
-    public function __construct(int $value)
+    public function __construct(DateTimeImmutable $value)
     {
         try {
             $this->guard($value);
@@ -25,7 +26,12 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
         $this->value = $value;
     }
 
-    public function equals(IntegerValueObjectInterface $other): bool
+    public function getDateTime(): DateTimeImmutable
+    {
+        return $this->value;
+    }
+
+    public function equals(TimestampValueObjectInterface $other): bool
     {
         if (static::class !== get_class($other)) {
             return false;
@@ -35,13 +41,13 @@ abstract class IntegerValueObject implements IntegerValueObjectInterface
 
     public function getValue(): int
     {
-        return $this->value;
+        return $this->value->getTimestamp();
     }
 
     /**
      * @throws Throwable if value is invalid
      */
-    abstract protected function guard(int $value): void;
+    abstract protected function guard(DateTimeImmutable $value): void;
 
-    abstract protected function throwException(int $value, Throwable $e): Exception;
+    abstract protected function throwException(DateTimeImmutable $value, Throwable $e): Exception;
 }

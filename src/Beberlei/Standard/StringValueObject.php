@@ -6,7 +6,7 @@ namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
 use Throwable;
-use TimiTao\ValueObject\Core\Standard\StringValueObject as StringValueObjectInterface;
+use TimiTao\ValueObject\Standard\ValueObject\StringValueObject as StringValueObjectInterface;
 
 abstract class StringValueObject implements StringValueObjectInterface
 {
