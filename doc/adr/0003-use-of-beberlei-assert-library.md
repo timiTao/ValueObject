@@ -4,7 +4,7 @@ Date: 2019-12-26
 
 ## Status
 
-Accepted
+Superceded by [5. Change fascade for Beberlei extension uses](0005-change-fascade-for-beberlei-extension-uses.md)
 
 ## Context
 

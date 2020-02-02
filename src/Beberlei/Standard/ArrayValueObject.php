@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
-use Throwable;
 use TimiTao\ValueObject\Standard\ValueObject\ArrayValueObject as ArrayValueObjectInterface;
 
 abstract class ArrayValueObject implements ArrayValueObjectInterface
@@ -17,11 +16,7 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
      */
     public function __construct(array $value)
     {
-        try {
-            $this->guard($value);
-        } catch (Throwable $e) {
-            throw $this->throwException($value, $e);
-        }
+        $this->guard($value);
         $this->value = $value;
     }
 
@@ -39,9 +34,7 @@ abstract class ArrayValueObject implements ArrayValueObjectInterface
     }
 
     /**
-     * @throws Throwable if value is invalid
+     * @throws Exception if value is invalid
      */
     abstract protected function guard(array $value): void;
-
-    abstract protected function throwException(array $value, Throwable $e): Exception;
 }

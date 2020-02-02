@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use Exception;
-use Throwable;
 use TimiTao\ValueObject\Standard\ValueObject\StringValueObject as StringValueObjectInterface;
 
 abstract class StringValueObject implements StringValueObjectInterface
@@ -17,11 +16,7 @@ abstract class StringValueObject implements StringValueObjectInterface
      */
     public function __construct(string $value)
     {
-        try {
-            $this->guard($value);
-        } catch (Throwable $e) {
-            throw $this->throwException($value, $e);
-        }
+        $this->guard($value);
         $this->value = $value;
     }
 
@@ -39,9 +34,7 @@ abstract class StringValueObject implements StringValueObjectInterface
     }
 
     /**
-     * @throws Throwable if value is invalid
+     * @throws Exception if value is invalid
      */
     abstract protected function guard(string $value): void;
-
-    abstract protected function throwException(string $value, Throwable $e): Exception;
 }

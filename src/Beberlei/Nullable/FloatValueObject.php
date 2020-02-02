@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Beberlei\Nullable;
 
 use Exception;
-use Throwable;
 use TimiTao\ValueObject\Nullable\ValueObject\FloatValueObject as FloatValueObjectInterface;
 
 abstract class FloatValueObject implements FloatValueObjectInterface
@@ -17,11 +16,7 @@ abstract class FloatValueObject implements FloatValueObjectInterface
      */
     public function __construct(?float $value)
     {
-        try {
-            $this->guard($value);
-        } catch (Throwable $e) {
-            throw $this->throwException($value, $e);
-        }
+        $this->guard($value);
         $this->value = $value;
     }
 
@@ -39,9 +34,7 @@ abstract class FloatValueObject implements FloatValueObjectInterface
     }
 
     /**
-     * @throws Throwable if value is invalid
+     * @throws Exception if value is invalid
      */
     abstract protected function guard(?float $value): void;
-
-    abstract protected function throwException(?float $value, Throwable $e): Exception;
 }

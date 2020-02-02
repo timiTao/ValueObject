@@ -6,7 +6,6 @@ namespace TimiTao\ValueObject\Beberlei\Standard;
 
 use DateTimeImmutable;
 use Exception;
-use Throwable;
 use TimiTao\ValueObject\Standard\DateTime\TimestampValueObject as TimestampValueObjectInterface;
 
 abstract class TimestampValueObject implements TimestampValueObjectInterface
@@ -18,11 +17,7 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
      */
     public function __construct(DateTimeImmutable $value)
     {
-        try {
-            $this->guard($value);
-        } catch (Throwable $e) {
-            throw $this->throwException($value, $e);
-        }
+        $this->guard($value);
         $this->value = $value;
     }
 
@@ -45,9 +40,7 @@ abstract class TimestampValueObject implements TimestampValueObjectInterface
     }
 
     /**
-     * @throws Throwable if value is invalid
+     * @throws Exception if value is invalid
      */
     abstract protected function guard(DateTimeImmutable $value): void;
-
-    abstract protected function throwException(DateTimeImmutable $value, Throwable $e): Exception;
 }

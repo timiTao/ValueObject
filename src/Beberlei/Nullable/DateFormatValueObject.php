@@ -7,7 +7,6 @@ namespace TimiTao\ValueObject\Beberlei\Nullable;
 use DateTime;
 use DateTimeImmutable;
 use Exception;
-use Throwable;
 use TimiTao\ValueObject\Nullable\DateTime\DateFormatValueObject as DateFormatValueObjectInterface;
 
 abstract class DateFormatValueObject implements DateFormatValueObjectInterface
@@ -21,21 +20,9 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
      */
     public function __construct(?DateTimeImmutable $value, string $format = DateTime::ATOM)
     {
-        try {
-            $this->guard($value);
-        } catch (Throwable $e) {
-            throw $this->throwException($value, $e);
-        }
+        $this->guard($value, $format);
         $this->value = $value;
         $this->format = $format;
-    }
-
-    public function getValue(): ?string
-    {
-        if ($this->value === null) {
-            return null;
-        }
-        return $this->value->format($this->format);
     }
 
     public function equals(DateFormatValueObjectInterface $other): bool
@@ -56,15 +43,21 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
         return $dateTime->getTimestamp() === $otherDateTime->getTimestamp();
     }
 
+    public function getValue(): ?string
+    {
+        if ($this->value === null) {
+            return null;
+        }
+        return $this->value->format($this->format);
+    }
+
     public function getDateTime(): ?DateTimeImmutable
     {
         return $this->value;
     }
 
     /**
-     * @throws Throwable if value is invalid
+     * @throws Exception if value is invalid
      */
-    abstract protected function guard(?DateTimeImmutable $value): void;
-
-    abstract protected function throwException(?DateTimeImmutable $value, Throwable $e): Exception;
+    abstract protected function guard(?DateTimeImmutable $value, string $format): void;
 }
