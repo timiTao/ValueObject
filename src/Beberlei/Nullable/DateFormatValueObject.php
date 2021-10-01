@@ -36,9 +36,7 @@ abstract class DateFormatValueObject implements DateFormatValueObjectInterface
         if ($this->getValue() === $other->getValue()) {
             return true;
         }
-        /** @var DateTimeImmutable $dateTime */
         $dateTime = $this->getDateTime();
-        /** @var DateTimeImmutable $otherDateTime */
         $otherDateTime = $other->getDateTime();
         return $dateTime->getTimestamp() === $otherDateTime->getTimestamp();
     }
