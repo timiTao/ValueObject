@@ -1,0 +1,9 @@
+{
+    "name": "aggrego/value-object-deployment",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "symplify/monorepo-builder": "^9.4"
+    }
+}

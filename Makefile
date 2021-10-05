@@ -1,9 +1,5 @@
 #!/usr/bin/env make
 
-ifndef PHP
-	PHP_VERSION=7.1.0
-endif
-
 -include .env
 export
 
@@ -11,7 +7,7 @@ default: bash
 
 ### Define PHP
 
-qa_image=jakzal/phpqa:1.25.0
+qa_image=jakzal/phpqa:1.60.1
 
 dockerized=docker run --init -it --rm \
 	-u $(shell id -u):$(shell id -g) \
@@ -21,46 +17,38 @@ qa_tools=${dockerized} \
 	-e COMPOSER_CACHE_DIR=/app/tmp/composer \
 	${qa_image}
 
-php_image=php:${PHP_VERSION}-alpine
-
-php=${dockerized} \
-	-e COMPOSER_CACHE_DIR=/app/tmp/var/composer \
-	${php_image}
-
 phpcs-psr1:
-	${qa_tools} phpcs --standard=PSR1 ./src --ignore=*/spec/*
+	${qa_tools} phpcs --standard=PSR1 ./packages --ignore=*/spec/*
 
 phpcs-psr2:
-	${qa_tools} phpcs --standard=PSR2 ./src --ignore=*/spec/*
+	${qa_tools} phpcs --standard=PSR2 ./packages --ignore=*/spec/*
 
 phpcbf-psr1:
-	${qa_tools} phpcbf --standard=PSR1 ./src
+	${qa_tools} phpcbf --standard=PSR1 ./packages
 
 phpcbf-psr2:
-	${qa_tools} phpcbf --standard=PSR2 ./src
+	${qa_tools} phpcbf --standard=PSR2 ./packages
 
 phpstan:
-	${qa_tools} phpstan analyse ./src --level max
+	${qa_tools} phpstan analyse ./packages --level max
 
 phpmd:
 	${qa_tools} phpmd . text codesize,unusedcode --exclude vendor/,tmp/
-
-ecs:
-	${qa_tools} ecs check src --config ecs.yaml
-
-ecs-fix:
-	${qa_tools} ecs check src --config ecs.yaml --fix
 
 code-analysis:
 	@make phpcs-psr1
 	@make phpcs-psr2
 	@make phpstan
-	@make ecs
 
 code-fix:
 	@make phpcbf-psr1
 	@make phpcbf-psr2
-	@make ecs-fix
+
+php-mono-validate:
+	${php} vendor/bin/monorepo-builder validate
+
+php-mono-merge:
+	${php} vendor/bin/monorepo-builder merge
 
 composer-install:
 	${qa_tools} composer install ${composer_args}

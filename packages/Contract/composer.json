@@ -1,0 +1,19 @@
+{
+    "name": "aggrego/value-object-contract",
+    "type": "library",
+    "description": "",
+    "minimum-stability": "stable",
+    "license": "BSD-3-Clause",
+    "keywords": [],
+    "authors": [
+        {
+            "name": "Tomasz Kunicki"
+        }
+    ],
+    "require": {
+        "php": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {"TimiTao\\ValueObject\\Contract\\": "src/"}
+    }
+}
