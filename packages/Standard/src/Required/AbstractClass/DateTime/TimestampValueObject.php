@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace TimiTao\ValueObject\Standard\Required\AbstractClass;
+namespace TimiTao\ValueObject\Standard\Required\AbstractClass\DateTime;
 
 use DateTimeImmutable;
 use TimiTao\ValueObject\Contract\Required\DateTime\TimestampValueObject as TimestampValueObjectInterface;
