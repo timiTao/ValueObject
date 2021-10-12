@@ -12,14 +12,17 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Standard\Nullable\Trait\ValueObject;
 
 use TimiTao\ValueObject\Contract\Nullable\ValueObject\FloatValueObject;
+use TimiTao\ValueObject\Standard\CheckClassTrait;
 
 trait FloatValueObjectTrait
 {
+    use CheckClassTrait;
+
     private ?float $value;
 
     public function equals(FloatValueObject $other): bool
     {
-        if (static::class !== get_class($other)) {
+        if (!$this->isSameClass($other)) {
             return false;
         }
         return $this->getValue() === $other->getValue();

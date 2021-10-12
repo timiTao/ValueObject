@@ -12,14 +12,17 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Standard\Nullable\Trait\ValueObject;
 
 use TimiTao\ValueObject\Contract\Nullable\ValueObject\BooleanValueObject;
+use TimiTao\ValueObject\Standard\CheckClassTrait;
 
 trait BooleanValueObjectTrait
 {
+    use CheckClassTrait;
+
     private ?bool $value;
 
     public function equals(BooleanValueObject $other): bool
     {
-        if (static::class !== get_class($other)) {
+        if (!$this->isSameClass($other)) {
             return false;
         }
         return $this->getValue() === $other->getValue();

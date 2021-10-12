@@ -12,15 +12,18 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Standard\Required\Trait\ValueObject;
 
 use TimiTao\ValueObject\Contract\Required\ValueObject\ArrayValueObject;
+use TimiTao\ValueObject\Standard\CheckClassTrait;
 
 trait ArrayValueObjectTrait
 {
+    use CheckClassTrait;
+
     /** @var array<mixed> */
     private array $value;
 
     public function equals(ArrayValueObject $other): bool
     {
-        if (static::class !== get_class($other)) {
+        if (!$this->isSameClass($other)) {
             return false;
         }
         return $this->getValue() === $other->getValue();

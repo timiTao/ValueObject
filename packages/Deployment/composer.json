@@ -4,6 +4,18 @@
         "php": ">=8.0"
     },
     "require-dev": {
-        "symplify/monorepo-builder": "^9.4"
+        "symplify/monorepo-builder": "^9.4",
+        "phpspec/phpspec": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {"TimiTao\\ValueObject\\Deployment\\": "src/"},
+        "exclude-from-classmap": [
+            "spec/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\TimiTao\\ValueObject\\Deployment\\": "spec/"
+        }
     }
 }

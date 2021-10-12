@@ -13,9 +13,12 @@ namespace TimiTao\ValueObject\Standard\Required\Trait\DateTime;
 
 use DateTimeImmutable;
 use TimiTao\ValueObject\Contract\Required\DateTime\DateFormatValueObject;
+use TimiTao\ValueObject\Standard\CheckClassTrait;
 
 trait DateFormatValueObjectTrait
 {
+    use CheckClassTrait;
+
     private DateTimeImmutable $value;
 
     private string $format;
@@ -27,7 +30,7 @@ trait DateFormatValueObjectTrait
 
     public function equals(DateFormatValueObject $other): bool
     {
-        if (static::class !== get_class($other)) {
+        if (!$this->isSameClass($other)) {
             return false;
         }
         return $this->getDateTime()->getTimestamp() === $other->getDateTime()->getTimestamp();

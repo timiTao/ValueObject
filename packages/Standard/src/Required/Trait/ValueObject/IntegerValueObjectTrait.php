@@ -12,14 +12,17 @@ declare(strict_types=1);
 namespace TimiTao\ValueObject\Standard\Required\Trait\ValueObject;
 
 use TimiTao\ValueObject\Contract\Required\ValueObject\IntegerValueObject;
+use TimiTao\ValueObject\Standard\CheckClassTrait;
 
 trait IntegerValueObjectTrait
 {
+    use CheckClassTrait;
+
     private int $value;
 
     public function equals(IntegerValueObject $other): bool
     {
-        if (static::class !== get_class($other)) {
+        if (!$this->isSameClass($other)) {
             return false;
         }
         return $this->getValue() === $other->getValue();

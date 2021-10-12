@@ -11,12 +11,22 @@
         "php": ">=8.0"
     },
     "require-dev": {
+        "phpspec/phpspec": "^7.1",
         "symplify/monorepo-builder": "^9.4"
     },
     "autoload": {
+        "exclude-from-classmap": [
+            "packages/Deployment/spec/"
+        ],
         "psr-4": {
             "TimiTao\\ValueObject\\Contract\\": "packages/Contract/src/",
+            "TimiTao\\ValueObject\\Deployment\\": "packages/Deployment/src/",
             "TimiTao\\ValueObject\\Standard\\": "packages/Standard/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\TimiTao\\ValueObject\\Deployment\\": "packages/Deployment/spec/"
         }
     },
     "replace": {
