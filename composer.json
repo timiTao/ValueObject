@@ -30,9 +30,9 @@
         }
     },
     "replace": {
-        "aggrego/value-object-contract": "self.version",
-        "aggrego/value-object-deployment": "self.version",
-        "aggrego/value-object-standard": "self.version"
+        "timitao/value-object-contract": "self.version",
+        "timitao/value-object-deployment": "self.version",
+        "timitao/value-object-standard": "self.version"
     },
     "minimum-stability": "stable"
 }

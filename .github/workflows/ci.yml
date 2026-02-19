@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Composer install
+        run: make composer-install
+
+      - name: Code standards (PSR-1)
+        run: make phpcs-psr1
+
+      - name: Code standards (PSR-2)
+        run: make phpcs-psr2
+
+      - name: Static analysis (PHPStan)
+        run: make phpstan
+
+      - name: Tests (PHPSpec)
+        run: make php-phpspec

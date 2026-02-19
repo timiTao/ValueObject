@@ -3,7 +3,34 @@
 [![Total Downloads](https://poser.pugx.org/timitao/value-object/downloads.svg)](https://packagist.org/packages/timitao/value-object)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/timiTao/ValueObject/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/timiTao/ValueObject/?branch=master)
 
-### Architecture decision records
+## Why
+
+This library provides **typed Value Objects** in the spirit of Domain-Driven Design: immutable, compared by value and by type. It keeps **contracts** (interfaces) separate from **implementations**, offers both **Required** (non-null) and **Nullable** variants, and has **no framework dependency**—you can depend only on the contract package or use the default implementations.
+
+## Installation
+
+```bash
+composer require timitao/value-object
+```
+
+## Usage
+
+Extend one of the standard value object classes and use `equals()` for type-safe value comparison (same concrete class and same value):
+
+```php
+use TimiTao\ValueObject\Standard\Required\AbstractClass\ValueObject\StringValueObject;
+
+final class Title extends StringValueObject {}
+
+$a = new Title('Hello');
+$b = new Title('Hello');
+$c = new Title('World');
+
+$a->equals($b); // true — same class, same value
+$a->equals($c); // false — same class, different value
+```
+
+## Architecture decision records
 
 1. [Record architecture decisions](/doc/adr/0001-record-architecture-decisions.md)
 2. [Strict code style](/doc/adr/0002-strict-code-style.md)

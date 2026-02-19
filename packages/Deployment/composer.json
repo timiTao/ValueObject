@@ -1,5 +1,5 @@
 {
-    "name": "aggrego/value-object-deployment",
+    "name": "timitao/value-object-deployment",
     "require": {
         "php": ">=8.0"
     },

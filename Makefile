@@ -9,7 +9,9 @@ default: bash
 
 qa_image=jakzal/phpqa:1.60.1
 
-dockerized=docker run --init -it --rm \
+# Omit -it in CI (no TTY) so make targets work in GitHub Actions
+docker_tty := $(if $(CI),,-it )
+dockerized=docker run --init $(docker_tty)--rm \
 	-u $(shell id -u):$(shell id -g) \
 	-v $(shell pwd):/app \
 	-w /app
@@ -30,7 +32,7 @@ phpcbf-psr2:
 	${qa} phpcbf --standard=PSR2 ./packages
 
 phpstan:
-	${qa} phpstan analyse ./packages --level max
+	${qa} phpstan analyse -c phpstan.neon.dist
 
 phpmd:
 	${qa} phpmd . text codesize,unusedcode --exclude vendor/,tmp/
