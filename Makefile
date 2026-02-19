@@ -7,7 +7,7 @@ default: bash
 
 ### Define PHP
 
-qa_image=jakzal/phpqa:1.60.1
+qa_image=jakzal/phpqa:1.120.1-php8.2
 
 # Omit -it in CI (no TTY) so make targets work in GitHub Actions
 docker_tty := $(if $(CI),,-it )
